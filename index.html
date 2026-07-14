@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sam Taylor — Agentic Operations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
+<style>
+
+/* ============================================
+   DESIGN TOKENS
+   ink       — primary text / dark surfaces
+   paper     — page background
+   signal    — amber, used sparingly for CTAs + highlights
+   slate     — secondary text
+   line      — hairline dividers
+   live      — deep teal, "status: active" color
+   ============================================ */
+:root{
+  --ink: #14181C;
+  --paper: #F2F1EC;
+  --paper-raised: #FFFFFF;
+  --signal: #E0A039;
+  --signal-ink: #7A5316;
+  --slate: #59636C;
+  --line: #DAD7CE;
+  --live: #2C6E63;
+  --console-bg: #14181C;
+  --console-text: #E7E4DC;
+  --console-dim: #7C8790;
+
+  --display: 'IBM Plex Sans', sans-serif;
+  --body: 'Source Serif 4', serif;
+  --mono: 'IBM Plex Mono', monospace;
+
+  --max-w: 1040px;
+}
+
+*{box-sizing:border-box; margin:0; padding:0;}
+
+html{scroll-behavior:smooth;}
+
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--body);
+  font-size:18px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+
+a{color:inherit;}
+
+.wrap{
+  max-width:var(--max-w);
+  margin:0 auto;
+  padding:0 28px;
+}
+
+.eyebrow{
+  font-family:var(--mono);
+  font-size:12.5px;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:var(--slate);
+}
+
+h1,h2,h3{
+  font-family:var(--display);
+  font-weight:700;
+  letter-spacing:-0.01em;
+  line-height:1.05;
+}
+
+/* ---------- NAV ---------- */
+nav{
+  position:sticky; top:0; z-index:50;
+  background:rgba(242,241,236,0.88);
+  backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--line);
+}
+nav .wrap{
+  display:flex; align-items:center; justify-content:space-between;
+  height:64px;
+}
+.wordmark{
+  font-family:var(--mono);
+  font-weight:500;
+  font-size:15px;
+  letter-spacing:0.02em;
+}
+.wordmark span{color:var(--signal-ink);}
+.navlinks{display:flex; gap:28px; font-family:var(--mono); font-size:13.5px;}
+.navlinks a{
+  text-decoration:none;
+  color:var(--slate);
+  border-bottom:1px solid transparent;
+  padding-bottom:2px;
+  transition:color .15s, border-color .15s;
+}
+.navlinks a:hover, .navlinks a:focus-visible{color:var(--ink); border-color:var(--signal);}
+
+/* ---------- HERO ---------- */
+.hero{
+  padding:96px 0 64px;
+  border-bottom:1px solid var(--line);
+}
+.status-line{
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:var(--mono); font-size:13px; letter-spacing:0.04em;
+  color:var(--live);
+  border:1px solid var(--line);
+  background:var(--paper-raised);
+  padding:6px 12px;
+  border-radius:100px;
+  margin-bottom:28px;
+}
+.dot{
+  width:7px; height:7px; border-radius:50%;
+  background:var(--live);
+  animation:pulse 2.2s ease-in-out infinite;
+}
+@keyframes pulse{
+  0%,100%{opacity:1;}
+  50%{opacity:0.35;}
+}
+.hero h1{
+  font-size:clamp(34px, 5vw, 54px);
+  max-width:820px;
+}
+.hero h1 em{
+  font-style:normal;
+  color:var(--signal-ink);
+  background:linear-gradient(transparent 62%, rgba(224,160,57,0.35) 62%);
+}
+.hero p.lede{
+  font-family:var(--body);
+  font-size:20px;
+  color:var(--slate);
+  max-width:600px;
+  margin-top:22px;
+}
+.hero .ctas{
+  margin-top:36px;
+  display:flex; gap:14px; flex-wrap:wrap;
+}
+.btn{
+  font-family:var(--mono);
+  font-size:14px;
+  letter-spacing:0.02em;
+  padding:13px 22px;
+  border-radius:6px;
+  text-decoration:none;
+  display:inline-block;
+  border:1px solid var(--ink);
+  transition:transform .12s ease, background .15s ease;
+}
+.btn:hover, .btn:focus-visible{transform:translateY(-1px);}
+.btn-primary{background:var(--ink); color:var(--paper);}
+.btn-primary:hover{background:#000;}
+.btn-ghost{background:transparent; color:var(--ink);}
+.btn-ghost:hover{background:var(--paper-raised);}
+
+/* ---------- SECTION HEADS ---------- */
+.section{padding:80px 0; border-bottom:1px solid var(--line);}
+.section:last-of-type{border-bottom:none;}
+.section-head{max-width:640px; margin-bottom:48px;}
+.section-head h2{font-size:clamp(26px,3.4vw,34px); margin-top:10px;}
+.section-head p{color:var(--slate); margin-top:14px; font-size:17px;}
+
+/* ---------- CASE STUDIES ---------- */
+.cases{display:flex; flex-direction:column; gap:1px; background:var(--line);}
+.case{
+  background:var(--paper);
+  padding:36px 32px;
+  display:grid;
+  grid-template-columns:200px 1fr;
+  gap:28px;
+}
+.case-tag{
+  font-family:var(--mono); font-size:12px; letter-spacing:0.1em;
+  color:var(--signal-ink); text-transform:uppercase;
+  padding-top:4px;
+}
+.case h3{font-size:21px; margin-bottom:10px;}
+.case .row{margin-bottom:12px;}
+.case .row .k{
+  font-family:var(--mono); font-size:11.5px; letter-spacing:0.08em;
+  color:var(--slate); text-transform:uppercase; display:block; margin-bottom:3px;
+}
+.case .row .v{font-size:16.5px;}
+.case .outcome{
+  font-family:var(--mono); font-size:16px; color:var(--live); font-weight:500;
+}
+
+/* ---------- MODES ---------- */
+.modes{display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line);}
+.mode{
+  background:var(--paper-raised);
+  padding:36px 32px;
+}
+.mode-label{
+  font-family:var(--mono); font-size:12.5px; letter-spacing:0.1em;
+  color:var(--slate); text-transform:uppercase;
+  display:flex; align-items:center; gap:8px; margin-bottom:16px;
+}
+.mode-label .dot{background:var(--slate); animation:none;}
+.mode.active .mode-label{color:var(--live);}
+.mode.active .mode-label .dot{background:var(--live); animation:pulse 2.2s ease-in-out infinite;}
+.mode h3{font-size:22px; margin-bottom:12px;}
+.mode ul{list-style:none; margin-top:16px;}
+.mode li{
+  font-size:15.5px; color:var(--slate);
+  padding-left:16px; position:relative; margin-bottom:10px;
+}
+.mode li::before{content:"—"; position:absolute; left:0; color:var(--line);}
+.mode .link{
+  display:inline-block; margin-top:20px;
+  font-family:var(--mono); font-size:13.5px;
+  border-bottom:1px solid var(--ink);
+  text-decoration:none;
+}
+
+/* ---------- CONSOLE / ASK ---------- */
+.console-wrap{background:var(--console-bg); border-radius:10px; overflow:hidden;}
+.console-top{
+  display:flex; align-items:center; gap:8px;
+  padding:12px 16px; border-bottom:1px solid #2A2F35;
+}
+.console-top .dot-row{display:flex; gap:6px;}
+.console-top .dot-row span{width:9px; height:9px; border-radius:50%; background:#3A3F45;}
+.console-top .label{
+  font-family:var(--mono); font-size:12px; color:var(--console-dim);
+  margin-left:8px;
+}
+#chat-log{
+  height:360px; overflow-y:auto;
+  padding:20px;
+  font-family:var(--mono); font-size:14.5px; line-height:1.7;
+  color:var(--console-text);
+}
+#chat-log .msg{margin-bottom:16px; white-space:pre-wrap;}
+#chat-log .msg .who{color:var(--console-dim);}
+#chat-log .msg.you .who{color:#8FB4C9;}
+#chat-log .msg.sam .who{color:var(--signal);}
+#chat-log .msg.err{color:#C9756A;}
+.console-input{
+  display:flex; border-top:1px solid #2A2F35;
+}
+.console-input input{
+  flex:1; background:transparent; border:none; outline:none;
+  color:var(--console-text); font-family:var(--mono); font-size:14.5px;
+  padding:16px 18px;
+}
+.console-input input::placeholder{color:var(--console-dim);}
+.console-input button{
+  background:transparent; border:none; color:var(--signal);
+  font-family:var(--mono); font-size:14px; padding:0 20px;
+  cursor:pointer;
+}
+.console-input button:hover{color:#fff;}
+.console-input button:disabled{color:var(--console-dim); cursor:default;}
+.cursor{display:inline-block; width:7px; height:14px; background:var(--signal); animation:blink 1s step-end infinite; vertical-align:text-bottom;}
+@keyframes blink{50%{opacity:0;}}
+
+/* ---------- FOOTER ---------- */
+footer{padding:56px 0 80px;}
+.foot-grid{display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:24px;}
+.foot-links{display:flex; gap:22px; font-family:var(--mono); font-size:14px;}
+.foot-links a{text-decoration:none; border-bottom:1px solid var(--line);}
+.foot-links a:hover{border-color:var(--ink);}
+.foot-note{font-family:var(--mono); font-size:12.5px; color:var(--slate);}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width:720px){
+  .case{grid-template-columns:1fr; gap:8px;}
+  .modes{grid-template-columns:1fr;}
+  .navlinks{gap:16px;}
+  #chat-log{height:300px;}
+}
+
+/* ---------- MOTION + FOCUS ---------- */
+@media (prefers-reduced-motion:reduce){
+  .dot, .cursor{animation:none;}
+  html{scroll-behavior:auto;}
+}
+a:focus-visible, button:focus-visible, input:focus-visible{
+  outline:2px solid var(--signal); outline-offset:2px;
+}
+
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="wordmark">SAM<span>&nbsp;TAYLOR</span></div>
+    <div class="navlinks">
+      <a href="#work">Work</a>
+      <a href="#modes">Engage</a>
+      <a href="#ask">Ask</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="status-line"><span class="dot"></span> STATUS: OPEN — FULL-TIME &amp; FRACTIONAL</div>
+    <h1>Built an agentic platform that took a 40-person contractor operation down to a fraction of the headcount — and lifted <em>margin by 25 points.</em></h1>
+    <p class="lede">Director of Business &amp; Agentic Operations. I build the systems that let operations run themselves, then run them.</p>
+    <div class="ctas">
+      <a class="btn btn-primary" href="#work">See the work</a>
+      <a class="btn btn-ghost" href="#ask">Ask directly →</a>
+    </div>
+  </div>
+</header>
+
+<section class="section" id="work">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Track record</div>
+      <h2>Three systems, one pattern.</h2>
+      <p>Find where coordination costs more than the work itself. Automate the coordination. Keep the judgment.</p>
+    </div>
+
+    <div class="cases">
+      <div class="case">
+        <div class="case-tag">Operations</div>
+        <div>
+          <h3>Agentic operations platform</h3>
+          <div class="row"><span class="k">Situation</span><span class="v">A contractor-heavy delivery operation ran on manual coordination — high headcount, slow to scale, margin under constant pressure.</span></div>
+          <div class="row"><span class="k">Insight</span><span class="v">The bottleneck wasn't the delivery work. It was the coordination wrapped around it.</span></div>
+          <div class="row"><span class="k">Built</span><span class="v">An agentic project-management platform that took over triage, coordination, and routing across the contractor pool.</span></div>
+          <div class="row"><span class="k">Outcome</span><span class="outcome">+25 percentage points of gross margin.</span></div>
+        </div>
+      </div>
+
+      <div class="case">
+        <div class="case-tag">Personal systems</div>
+        <div>
+          <h3>Personal life assistant</h3>
+          <div class="row"><span class="k">Situation</span><span class="v">Email, messages, calendar, and health data all needed attention, and none of it was triaged.</span></div>
+          <div class="row"><span class="k">Insight</span><span class="v">The problem was never volume. It was untriaged information demanding equal attention.</span></div>
+          <div class="row"><span class="k">Built</span><span class="v">A personal assistant that turns everything incoming into to-dos and a daily digest, with voice-note capture for "note to self" moments.</span></div>
+          <div class="row"><span class="k">Outcome</span><span class="outcome">One digest replaces constant app-switching.</span></div>
+        </div>
+      </div>
+
+      <div class="case">
+        <div class="case-tag">Job search</div>
+        <div>
+          <h3>Job application matching tool</h3>
+          <div class="row"><span class="k">Situation</span><span class="v">A high-volume, multi-track job search needed to stay sharp without turning into generic mass-applying.</span></div>
+          <div class="row"><span class="k">Insight</span><span class="v">Matching a profile to a role is a data problem before it's a writing problem.</span></div>
+          <div class="row"><span class="k">Built</span><span class="v">A tool that scores role fit as a suitability heatmap, tailors the cover letter, and drafts outreach in his own voice.</span></div>
+          <div class="row"><span class="k">Outcome</span><span class="outcome">Targeted, fast applications at volume.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="modes">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">How we work together</div>
+      <h2>Two modes. Same approach.</h2>
+      <p>Whichever fits, the method doesn't change — find the coordination cost, automate it, keep the judgment.</p>
+    </div>
+
+    <div class="modes">
+      <div class="mode active">
+        <div class="mode-label"><span class="dot"></span>Mode: Full-time</div>
+        <h3>Applied AI &amp; Agentic Operations</h3>
+        <p style="color:var(--slate); font-size:15.5px;">Senior operating roles — Applied AI Lead, Head of AI, BizOps, AI transformation.</p>
+        <ul>
+          <li>Owns operations end to end, not just the AI layer</li>
+          <li>Comfortable across BI, RevOps, and delivery</li>
+          <li>Built and shipped, not just advised</li>
+        </ul>
+      </div>
+      <div class="mode">
+        <div class="mode-label"><span class="dot"></span>Mode: Fractional — Føre</div>
+        <h3>Fractional AI &amp; ops support</h3>
+        <p style="color:var(--slate); font-size:15.5px;">For Yorkshire-based digital and creative agencies, 10–200 people.</p>
+        <ul>
+          <li>Discovery days through to a fractional Head of AI</li>
+          <li>Systems built for the team to run, not to depend on me</li>
+          <li>Structured retainers, clear scope</li>
+        </ul>
+        <a class="link" href="https://foere.co.uk" target="_blank" rel="noopener">More on Føre →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="ask">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Ask directly</div>
+      <h2>A live system, not a static page.</h2>
+      <p>This runs on the same idea as the work above — ask it anything about hiring me, full-time or fractional.</p>
+    </div>
+
+    <div class="console-wrap">
+      <div class="console-top">
+        <div class="dot-row"><span></span><span></span><span></span></div>
+        <div class="label">ask@hiresam.uk — session live</div>
+      </div>
+      <div id="chat-log">
+        <div class="msg sam"><span class="who">sam ›</span> Ask me anything about the work above, full-time availability, or how Føre engagements work. I'll answer plainly — if I don't know, I'll say so.</div>
+      </div>
+      <div class="console-input">
+        <input id="chat-input" type="text" placeholder="Type a question and press enter…" autocomplete="off">
+        <button id="chat-send">SEND</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="eyebrow" style="margin-bottom:10px;">Get in touch</div>
+        <div class="foot-links">
+          <a href="mailto:go@hiresam.uk">go@hiresam.uk</a>
+          <a href="https://www.linkedin.com/in/sam-taylor-b0157a84/" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+      <div class="foot-note">hiresam.uk</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   CHAT CONSOLE
+   NOTE ON DEPLOYMENT:
+   The fetch below calls api.anthropic.com directly. This works
+   automatically inside Claude.ai's own artifact preview (no key
+   needed there). Once this site is deployed to hiresam.uk, this
+   direct call would expose an API key in the browser — so before
+   going live, change API_ENDPOINT below to '/api/chat' and deploy
+   the included serverless function (api/chat.js) alongside this
+   file. See README.md for exact steps.
+   ============================================================ */
+
+const API_ENDPOINT = '/api/chat';
+
+const SYSTEM_PROMPT = `You are answering questions on Sam Taylor's personal site, on his behalf, for people deciding whether to hire him full-time or engage him fractionally through Føre.
+
+Background: Sam is Director of Business & Agentic Operations at LILT, an AI localisation company, based in West Yorkshire, UK. He built an agentic project-management platform that took a 40+ person contractor delivery operation down to a fraction of that headcount while lifting gross margin by 25 percentage points. He built the company's BI stack from scratch. He also builds his own tools: a personal assistant that triages email, messages, calendar and health data into to-dos and digests, and a job-search tool that scores role fit as a suitability heatmap, tailors cover letters, and drafts outreach in his own tone of voice.
+
+He is open to full-time senior roles in Applied AI, Agentic Operations, and BizOps, and to fractional engagements through Føre (his consultancy, serving Yorkshire-based digital and creative agencies of 10-200 people, with tiers from a single discovery day through to a fractional Head of AI).
+
+Career: Matthews Brand Solutions (2014-15) -> thebigword (2015-22, Project Manager to Program Director, seven years, public-sector framework contracts) -> LILT (2022-present). Studied at the University of Chester.
+
+Answer plainly and specifically, in short, direct sentences, matching Sam's own voice: no corporate filler, no AI-tell phrases, conclusion first. If asked something outside what's listed here (salary, personal life, anything not stated above), say plainly that you don't have that information rather than guessing.`;
+
+const chatLog = document.getElementById('chat-log');
+const chatInput = document.getElementById('chat-input');
+const chatSend = document.getElementById('chat-send');
+let history = [];
+let busy = false;
+
+function addMessage(who, text, cls){
+  const div = document.createElement('div');
+  div.className = 'msg ' + cls;
+  const label = who === 'you' ? 'you ›' : who === 'sam' ? 'sam ›' : '!';
+  div.innerHTML = `<span class="who">${label}</span> ${text}`;
+  chatLog.appendChild(div);
+  chatLog.scrollTop = chatLog.scrollHeight;
+}
+
+async function sendMessage(){
+  const text = chatInput.value.trim();
+  if(!text || busy) return;
+  addMessage('you', text, 'you');
+  history.push({role:'user', content:text});
+  chatInput.value = '';
+  busy = true;
+  chatSend.disabled = true;
+  addMessage('sam', '<span class="cursor"></span>', 'sam thinking');
+  const thinkingEl = chatLog.lastElementChild;
+
+  try{
+    const res = await fetch(API_ENDPOINT, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        model:'claude-sonnet-4-6',
+        max_tokens:500,
+        system: SYSTEM_PROMPT,
+        messages: history
+      })
+    });
+    const data = await res.json();
+    const textBlocks = (data.content || []).filter(b => b.type === 'text').map(b => b.text);
+    const reply = textBlocks.join('\n') || "Couldn't get a response there — try rephrasing.";
+    thinkingEl.innerHTML = `<span class="who">sam ›</span> ${reply}`;
+    history.push({role:'assistant', content: reply});
+  }catch(err){
+    thinkingEl.innerHTML = `<span class="who">!</span> Something went wrong reaching the assistant. Try again in a moment.`;
+    thinkingEl.className = 'msg err';
+  }finally{
+    busy = false;
+    chatSend.disabled = false;
+    chatInput.focus();
+  }
+}
+
+chatSend.addEventListener('click', sendMessage);
+chatInput.addEventListener('keydown', e => { if(e.key === 'Enter') sendMessage(); });
+</script>
+
+</body>
+</html>
