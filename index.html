@@ -3,37 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sam Taylor — Agentic Operations</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
+<title>Sam Taylor | Agentic Operations</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <style>
 
 /* ============================================
-   DESIGN TOKENS
-   ink       — primary text / dark surfaces
-   paper     — page background
-   signal    — amber, used sparingly for CTAs + highlights
-   slate     — secondary text
-   line      — hairline dividers
-   live      — deep teal, "status: active" color
+   DESIGN TOKENS (LASER QUEST)
+   ink       = primary text (near-white)
+   paper     = page background (black-violet)
+   signal    = neon magenta, CTAs + highlights
+   slate     = secondary text (muted lavender)
+   line      = hairline dividers (dim violet)
+   live      = neon cyan, "status: active" color
    ============================================ */
 :root{
-  --ink: #14181C;
-  --paper: #F2F1EC;
-  --paper-raised: #FFFFFF;
-  --signal: #E0A039;
-  --signal-ink: #7A5316;
-  --slate: #59636C;
-  --line: #DAD7CE;
-  --live: #2C6E63;
-  --console-bg: #14181C;
-  --console-text: #E7E4DC;
-  --console-dim: #7C8790;
+  --ink: #F2F0FF;
+  --paper: #060014;
+  --paper-raised: #10082A;
+  --signal: #FF2FD6;
+  --signal-ink: #FF8DEE;
+  --slate: #9C93C9;
+  --line: #3D2467;
+  --live: #33FFE0;
+  --console-bg: #000000;
+  --console-text: #39FF7A;
+  --console-dim: #3E6B58;
 
-  --display: 'IBM Plex Sans', sans-serif;
-  --body: 'Source Serif 4', serif;
-  --mono: 'IBM Plex Mono', monospace;
+  --display: Helvetica, 'Helvetica Neue', Arial, sans-serif;
+  --body: Helvetica, 'Helvetica Neue', Arial, sans-serif;
+  --mono: Helvetica, 'Helvetica Neue', Arial, sans-serif;
 
   --max-w: 1040px;
 }
@@ -43,12 +41,17 @@
 html{scroll-behavior:smooth;}
 
 body{
-  background:var(--paper);
+  background:
+    radial-gradient(ellipse at 50% -10%, rgba(255,47,214,0.16), transparent 55%),
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.025) 0 1px, transparent 1px 40px),
+    repeating-linear-gradient(0deg, rgba(255,255,255,0.025) 0 1px, transparent 1px 40px),
+    var(--paper);
   color:var(--ink);
   font-family:var(--body);
   font-size:18px;
   line-height:1.6;
   -webkit-font-smoothing:antialiased;
+  position:relative;
 }
 
 a{color:inherit;}
@@ -57,10 +60,13 @@ a{color:inherit;}
   max-width:var(--max-w);
   margin:0 auto;
   padding:0 28px;
+  position:relative;
+  z-index:3;
 }
 
 .eyebrow{
   font-family:var(--mono);
+  font-weight:700;
   font-size:12.5px;
   letter-spacing:0.12em;
   text-transform:uppercase;
@@ -74,57 +80,168 @@ h1,h2,h3{
   line-height:1.05;
 }
 
+/* ---------- SIDE FX / SCANLINES ---------- */
+.scanlines{
+  position:fixed; inset:0; z-index:1000; pointer-events:none;
+  background:repeating-linear-gradient(0deg, rgba(255,255,255,0.05) 0 1px, transparent 1px 3px);
+  mix-blend-mode:overlay;
+}
+.side-fx{
+  position:fixed; top:0; bottom:0; width:10px; z-index:2; pointer-events:none;
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,0.9) 1.5px, transparent 1.5px),
+    linear-gradient(180deg, var(--signal) 0 25%, transparent 25% 50%, var(--live) 50% 75%, transparent 75% 100%);
+  background-size: 10px 60px, 10px 40px;
+  background-position: 0 10px, 0 0;
+  background-repeat: repeat-y, repeat-y;
+  opacity:0.65;
+  filter:drop-shadow(0 0 6px var(--signal)) drop-shadow(0 0 6px var(--live));
+  animation: fxScroll 3s steps(8) infinite;
+}
+.side-fx.left{left:0;}
+.side-fx.right{right:0; animation-direction:reverse;}
+@keyframes fxScroll{
+  from{background-position: 0 10px, 0 0;}
+  to{background-position: 0 70px, 0 40px;}
+}
+@media (max-width:900px){ .side-fx{display:none;} }
+
 /* ---------- NAV ---------- */
 nav{
   position:sticky; top:0; z-index:50;
-  background:rgba(242,241,236,0.88);
+  background:rgba(6,0,20,0.86);
   backdrop-filter:blur(6px);
   border-bottom:1px solid var(--line);
+  box-shadow:0 1px 12px rgba(255,47,214,0.15);
 }
 nav .wrap{
   display:flex; align-items:center; justify-content:space-between;
   height:64px;
 }
 .wordmark{
-  font-family:var(--mono);
-  font-weight:500;
-  font-size:15px;
-  letter-spacing:0.02em;
+  display:flex; align-items:center; gap:10px;
+  font-family:var(--display);
+  font-weight:700;
+  font-size:16px;
+  letter-spacing:0.03em;
 }
-.wordmark span{color:var(--signal-ink);}
-.navlinks{display:flex; gap:28px; font-family:var(--mono); font-size:13.5px;}
+.wordmark-avatar{
+  width:34px; height:34px; border-radius:50%;
+  object-fit:cover; object-position:50% 12%;
+  border:2px solid var(--signal);
+  box-shadow:0 0 10px rgba(255,47,214,0.55);
+  display:block;
+}
+.wordmark span{color:var(--signal); text-shadow:0 0 10px rgba(255,47,214,0.7);}
+.navlinks{display:flex; gap:28px; font-family:var(--mono); font-size:13px;}
 .navlinks a{
   text-decoration:none;
   color:var(--slate);
-  border-bottom:1px solid transparent;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:0.06em;
+  border-bottom:2px solid transparent;
   padding-bottom:2px;
-  transition:color .15s, border-color .15s;
+  transition:color .15s, border-color .15s, text-shadow .15s;
 }
-.navlinks a:hover, .navlinks a:focus-visible{color:var(--ink); border-color:var(--signal);}
+.navlinks a:hover, .navlinks a:focus-visible{color:var(--live); border-color:var(--live); text-shadow:0 0 8px rgba(51,255,224,0.7);}
+
+.nav-burger{
+  display:none; flex-direction:column; justify-content:center; gap:5px;
+  width:36px; height:36px; padding:0;
+  background:none; border:none; cursor:pointer; z-index:60;
+}
+.nav-burger span{
+  width:24px; height:2px; background:var(--ink);
+  box-shadow:0 0 6px rgba(255,47,214,0.4);
+  transition:transform .2s ease, opacity .2s ease;
+}
+.nav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.nav-burger.open span:nth-child(2){opacity:0;}
+.nav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+.mobile-nav{
+  position:fixed; top:64px; left:0; right:0; z-index:55;
+  background:rgba(6,0,20,0.97);
+  border-bottom:1px solid var(--signal);
+  box-shadow:0 12px 30px rgba(255,47,214,0.2);
+  display:flex; flex-direction:column;
+  padding:8px 28px 16px;
+  transform:translateY(-10px); opacity:0; pointer-events:none;
+  transition:opacity .15s ease, transform .15s ease;
+}
+.mobile-nav.open{opacity:1; transform:translateY(0); pointer-events:auto;}
+.mobile-nav a{
+  text-decoration:none; color:var(--slate);
+  font-family:var(--mono); font-weight:700; text-transform:uppercase;
+  letter-spacing:0.06em; font-size:15px;
+  padding:14px 0; border-bottom:1px solid var(--line);
+}
+.mobile-nav a:last-child{border-bottom:none;}
+.mobile-nav a:hover, .mobile-nav a:focus-visible{color:var(--live); text-shadow:0 0 8px rgba(51,255,224,0.7);}
+
+@media (max-width:720px){
+  .navlinks{display:none;}
+  .nav-burger{display:flex;}
+}
 
 /* ---------- HERO ---------- */
 .hero{
   padding:96px 0 64px;
   border-bottom:1px solid var(--line);
 }
+.hero-grid{
+  display:grid; grid-template-columns:1fr; gap:44px; align-items:center;
+}
+.hero-photo{
+  position:relative;
+  justify-self:center;
+  width:100%; max-width:280px;
+  aspect-ratio:1/1;
+}
+.hero-photo::before{
+  content:"";
+  position:absolute; inset:-16%;
+  border-radius:50%;
+  background-image:
+    url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22200%22%20height%3D%22200%22%3E%3Cfilter%20id%3D%22n%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.85%22%20numOctaves%3D%222%22%20stitchTiles%3D%22stitch%22/%3E%3C/filter%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20filter%3D%22url%28%23n%29%22/%3E%3C/svg%3E"),
+    radial-gradient(circle, rgba(255,47,214,0.7), rgba(255,47,214,0) 68%);
+  background-size:180px 180px, 100% 100%;
+  background-blend-mode:overlay, normal;
+  filter:blur(3px);
+  z-index:0;
+}
+.hero-photo img{
+  position:relative; z-index:1;
+  display:block; width:100%; height:100%; border-radius:50%;
+  object-fit:cover; object-position:50% 22%;
+  filter:grayscale(1) contrast(1.08) brightness(1.03);
+  border:2px solid rgba(255,255,255,0.15);
+}
+@media (min-width:860px){
+  .hero-grid{grid-template-columns:1.3fr 0.9fr;}
+  .hero-photo{justify-self:end; max-width:320px;}
+}
 .status-line{
   display:inline-flex; align-items:center; gap:8px;
-  font-family:var(--mono); font-size:13px; letter-spacing:0.04em;
+  font-family:var(--mono); font-weight:700; font-size:13px; letter-spacing:0.04em;
   color:var(--live);
-  border:1px solid var(--line);
+  border:1px solid var(--live);
   background:var(--paper-raised);
   padding:6px 12px;
   border-radius:100px;
   margin-bottom:28px;
+  box-shadow:0 0 14px rgba(51,255,224,0.35), inset 0 0 8px rgba(51,255,224,0.12);
 }
 .dot{
-  width:7px; height:7px; border-radius:50%;
+  width:8px; height:8px; border-radius:50%;
   background:var(--live);
-  animation:pulse 2.2s ease-in-out infinite;
+  box-shadow:0 0 6px var(--live), 0 0 14px var(--live);
+  animation:pulse 1s steps(1) infinite;
 }
 @keyframes pulse{
-  0%,100%{opacity:1;}
-  50%{opacity:0.35;}
+  0%,49%{opacity:1;}
+  50%,100%{opacity:0.3;}
 }
 .hero h1{
   font-size:clamp(34px, 5vw, 54px);
@@ -132,8 +249,8 @@ nav .wrap{
 }
 .hero h1 em{
   font-style:normal;
-  color:var(--signal-ink);
-  background:linear-gradient(transparent 62%, rgba(224,160,57,0.35) 62%);
+  color:var(--live);
+  text-shadow:0 0 10px var(--live), 0 0 26px rgba(51,255,224,0.55);
 }
 .hero p.lede{
   font-family:var(--body);
@@ -147,21 +264,23 @@ nav .wrap{
   display:flex; gap:14px; flex-wrap:wrap;
 }
 .btn{
-  font-family:var(--mono);
+  font-family:var(--display);
+  font-weight:700;
+  text-transform:uppercase;
   font-size:14px;
-  letter-spacing:0.02em;
+  letter-spacing:0.03em;
   padding:13px 22px;
-  border-radius:6px;
+  border-radius:4px;
   text-decoration:none;
   display:inline-block;
-  border:1px solid var(--ink);
-  transition:transform .12s ease, background .15s ease;
+  border:2px solid var(--signal);
+  transition:transform .12s ease, box-shadow .15s ease, background .15s ease;
 }
-.btn:hover, .btn:focus-visible{transform:translateY(-1px);}
-.btn-primary{background:var(--ink); color:var(--paper);}
-.btn-primary:hover{background:#000;}
-.btn-ghost{background:transparent; color:var(--ink);}
-.btn-ghost:hover{background:var(--paper-raised);}
+.btn:hover, .btn:focus-visible{transform:translateY(-2px);}
+.btn-primary{background:var(--signal); color:#0A0014; box-shadow:0 0 16px rgba(255,47,214,0.55);}
+.btn-primary:hover{box-shadow:0 0 30px rgba(255,47,214,0.9);}
+.btn-ghost{background:transparent; color:var(--live); border-color:var(--live);}
+.btn-ghost:hover{background:rgba(51,255,224,0.08); box-shadow:0 0 20px rgba(51,255,224,0.6);}
 
 /* ---------- SECTION HEADS ---------- */
 .section{padding:80px 0; border-bottom:1px solid var(--line);}
@@ -173,26 +292,33 @@ nav .wrap{
 /* ---------- CASE STUDIES ---------- */
 .cases{display:flex; flex-direction:column; gap:1px; background:var(--line);}
 .case{
-  background:var(--paper);
+  background:var(--paper-raised);
   padding:36px 32px;
   display:grid;
   grid-template-columns:200px 1fr;
   gap:28px;
+  position:relative;
 }
+.case::before, .case::after{content:""; position:absolute; width:10px; height:10px;}
+.case::before{top:0; left:0; background:var(--signal); box-shadow:0 0 8px var(--signal);}
+.case::after{bottom:0; right:0; background:var(--live); box-shadow:0 0 8px var(--live);}
 .case-tag{
-  font-family:var(--mono); font-size:12px; letter-spacing:0.1em;
+  font-family:var(--mono); font-weight:700; font-size:12px; letter-spacing:0.1em;
   color:var(--signal-ink); text-transform:uppercase;
   padding-top:4px;
+  display:flex; flex-direction:column; align-items:flex-start; gap:10px;
 }
+.case-icon{width:22px; height:22px; color:var(--signal-ink); shape-rendering:crispEdges;}
 .case h3{font-size:21px; margin-bottom:10px;}
 .case .row{margin-bottom:12px;}
 .case .row .k{
-  font-family:var(--mono); font-size:11.5px; letter-spacing:0.08em;
+  font-family:var(--mono); font-weight:700; font-size:11.5px; letter-spacing:0.08em;
   color:var(--slate); text-transform:uppercase; display:block; margin-bottom:3px;
 }
-.case .row .v{font-size:16.5px;}
+.case .row .v{font-size:16.5px; color:var(--ink);}
 .case .outcome{
-  font-family:var(--mono); font-size:16px; color:var(--live); font-weight:500;
+  font-family:var(--mono); font-size:16px; color:var(--live); font-weight:700;
+  text-shadow:0 0 8px rgba(51,255,224,0.5);
 }
 
 /* ---------- MODES ---------- */
@@ -200,39 +326,44 @@ nav .wrap{
 .mode{
   background:var(--paper-raised);
   padding:36px 32px;
+  cursor:pointer;
+  transition:box-shadow .15s ease;
 }
+.mode:hover{box-shadow:inset 0 0 0 1px var(--line), 0 0 16px rgba(255,47,214,0.12);}
 .mode-label{
-  font-family:var(--mono); font-size:12.5px; letter-spacing:0.1em;
+  font-family:var(--mono); font-weight:700; font-size:12.5px; letter-spacing:0.1em;
   color:var(--slate); text-transform:uppercase;
   display:flex; align-items:center; gap:8px; margin-bottom:16px;
 }
-.mode-label .dot{background:var(--slate); animation:none;}
-.mode.active .mode-label{color:var(--live);}
-.mode.active .mode-label .dot{background:var(--live); animation:pulse 2.2s ease-in-out infinite;}
+.mode-label .dot{background:var(--slate); box-shadow:none; animation:none;}
+.mode.active{box-shadow:inset 0 0 0 1px var(--live), 0 0 24px rgba(51,255,224,0.18);}
+.mode.active .mode-label{color:var(--live); text-shadow:0 0 8px rgba(51,255,224,0.6);}
+.mode.active .mode-label .dot{background:var(--live); box-shadow:0 0 6px var(--live), 0 0 14px var(--live); animation:pulse 1s steps(1) infinite;}
 .mode h3{font-size:22px; margin-bottom:12px;}
 .mode ul{list-style:none; margin-top:16px;}
 .mode li{
   font-size:15.5px; color:var(--slate);
   padding-left:16px; position:relative; margin-bottom:10px;
 }
-.mode li::before{content:"—"; position:absolute; left:0; color:var(--line);}
+.mode li::before{content:"-"; position:absolute; left:0; color:var(--signal);}
 .mode .link{
   display:inline-block; margin-top:20px;
-  font-family:var(--mono); font-size:13.5px;
-  border-bottom:1px solid var(--ink);
+  font-family:var(--mono); font-weight:700; font-size:13.5px;
+  color:var(--live);
+  border-bottom:1px solid var(--live);
   text-decoration:none;
 }
 
 /* ---------- CONSOLE / ASK ---------- */
-.console-wrap{background:var(--console-bg); border-radius:10px; overflow:hidden;}
+.console-wrap{background:var(--console-bg); border-radius:10px; overflow:hidden; border:1px solid var(--signal); box-shadow:0 0 28px rgba(255,47,214,0.35);}
 .console-top{
   display:flex; align-items:center; gap:8px;
-  padding:12px 16px; border-bottom:1px solid #2A2F35;
+  padding:12px 16px; border-bottom:1px solid var(--line);
 }
 .console-top .dot-row{display:flex; gap:6px;}
-.console-top .dot-row span{width:9px; height:9px; border-radius:50%; background:#3A3F45;}
+.console-top .dot-row span{width:9px; height:9px; border-radius:50%; background:#2A1B4A;}
 .console-top .label{
-  font-family:var(--mono); font-size:12px; color:var(--console-dim);
+  font-family:var(--mono); font-weight:700; font-size:12px; color:var(--console-dim);
   margin-left:8px;
 }
 #chat-log{
@@ -243,11 +374,11 @@ nav .wrap{
 }
 #chat-log .msg{margin-bottom:16px; white-space:pre-wrap;}
 #chat-log .msg .who{color:var(--console-dim);}
-#chat-log .msg.you .who{color:#8FB4C9;}
+#chat-log .msg.you .who{color:var(--live);}
 #chat-log .msg.sam .who{color:var(--signal);}
-#chat-log .msg.err{color:#C9756A;}
+#chat-log .msg.err{color:#FF5C5C;}
 .console-input{
-  display:flex; border-top:1px solid #2A2F35;
+  display:flex; border-top:1px solid var(--line);
 }
 .console-input input{
   flex:1; background:transparent; border:none; outline:none;
@@ -257,33 +388,72 @@ nav .wrap{
 .console-input input::placeholder{color:var(--console-dim);}
 .console-input button{
   background:transparent; border:none; color:var(--signal);
-  font-family:var(--mono); font-size:14px; padding:0 20px;
+  font-family:var(--display); font-weight:700; font-size:14px; padding:0 20px;
   cursor:pointer;
 }
-.console-input button:hover{color:#fff;}
-.console-input button:disabled{color:var(--console-dim); cursor:default;}
+.console-input button:hover{color:var(--live); text-shadow:0 0 8px var(--live);}
+.console-input button:disabled{color:var(--console-dim); cursor:default; text-shadow:none;}
 .cursor{display:inline-block; width:7px; height:14px; background:var(--signal); animation:blink 1s step-end infinite; vertical-align:text-bottom;}
 @keyframes blink{50%{opacity:0;}}
+.console-top .close-chat{
+  margin-left:auto; background:none; border:none; color:var(--console-dim);
+  font-family:var(--display); font-size:18px; line-height:1; cursor:pointer; padding:4px;
+}
+.console-top .close-chat:hover{color:var(--live);}
+
+/* ---------- CHAT BUBBLE ---------- */
+.chat-bubble-btn{
+  position:fixed; right:24px; bottom:24px; z-index:100;
+  width:58px; height:58px; border-radius:50%;
+  background:var(--signal); color:#0A0014;
+  border:none; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 0 22px rgba(255,47,214,0.6);
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+.chat-bubble-btn:hover{transform:scale(1.06); box-shadow:0 0 32px rgba(255,47,214,0.85);}
+.chat-bubble-btn svg{width:24px; height:24px;}
+.chat-bubble-dot{
+  position:absolute; top:4px; right:4px;
+  width:10px; height:10px; border-radius:50%;
+  background:var(--live); border:2px solid #0A0014;
+  box-shadow:0 0 6px var(--live);
+  animation:pulse 1s steps(1) infinite;
+}
+.chat-panel{
+  position:fixed; right:24px; bottom:94px; z-index:100;
+  width:380px; max-width:calc(100vw - 32px);
+  transform-origin:bottom right;
+  transform:scale(0.96) translateY(8px);
+  opacity:0; pointer-events:none;
+  transition:opacity .15s ease, transform .15s ease;
+}
+.chat-panel.open{opacity:1; transform:scale(1) translateY(0); pointer-events:auto;}
+.chat-panel .console-wrap{box-shadow:0 0 40px rgba(255,47,214,0.45);}
+.chat-panel #chat-log{height:320px;}
+@media (max-width:480px){
+  .chat-panel{right:16px; left:16px; width:auto; bottom:88px;}
+  .chat-bubble-btn{right:16px; bottom:16px;}
+}
 
 /* ---------- FOOTER ---------- */
 footer{padding:56px 0 80px;}
 .foot-grid{display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:24px;}
-.foot-links{display:flex; gap:22px; font-family:var(--mono); font-size:14px;}
-.foot-links a{text-decoration:none; border-bottom:1px solid var(--line);}
-.foot-links a:hover{border-color:var(--ink);}
-.foot-note{font-family:var(--mono); font-size:12.5px; color:var(--slate);}
+.foot-links{display:flex; gap:22px; font-family:var(--mono); font-weight:700; font-size:14px;}
+.foot-links a{text-decoration:none; color:var(--live); border-bottom:1px solid var(--line);}
+.foot-links a:hover{border-color:var(--live); text-shadow:0 0 8px rgba(51,255,224,0.6);}
+.foot-note{font-family:var(--mono); font-weight:700; font-size:12.5px; color:var(--slate);}
 
 /* ---------- RESPONSIVE ---------- */
 @media (max-width:720px){
   .case{grid-template-columns:1fr; gap:8px;}
   .modes{grid-template-columns:1fr;}
-  .navlinks{gap:16px;}
   #chat-log{height:300px;}
 }
 
 /* ---------- MOTION + FOCUS ---------- */
 @media (prefers-reduced-motion:reduce){
-  .dot, .cursor{animation:none;}
+  .dot, .cursor, .side-fx, .scanlines, .chat-bubble-dot{animation:none;}
   html{scroll-behavior:auto;}
 }
 a:focus-visible, button:focus-visible, input:focus-visible{
@@ -294,26 +464,47 @@ a:focus-visible, button:focus-visible, input:focus-visible{
 </head>
 <body>
 
+<div class="scanlines" aria-hidden="true"></div>
+<div class="side-fx left" aria-hidden="true"></div>
+<div class="side-fx right" aria-hidden="true"></div>
+
 <nav>
   <div class="wrap">
-    <div class="wordmark">SAM<span>&nbsp;TAYLOR</span></div>
+    <div class="wordmark">
+      <img class="wordmark-avatar" src="sam-headshot.jpg" alt="Sam Taylor">
+      SAM<span>&nbsp;TAYLOR</span>
+    </div>
     <div class="navlinks">
       <a href="#work">Work</a>
       <a href="#modes">Engage</a>
-      <a href="#ask">Ask</a>
+      <a href="#" class="js-open-chat">Ask</a>
       <a href="#contact">Contact</a>
     </div>
+    <button id="nav-burger" class="nav-burger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div id="mobile-nav" class="mobile-nav">
+    <a href="#work">Work</a>
+    <a href="#modes">Engage</a>
+    <a href="#" class="js-open-chat">Ask</a>
+    <a href="#contact">Contact</a>
   </div>
 </nav>
 
 <header class="hero">
-  <div class="wrap">
-    <div class="status-line"><span class="dot"></span> STATUS: OPEN — FULL-TIME &amp; FRACTIONAL</div>
-    <h1>Built an agentic platform that took a 40-person contractor operation down to a fraction of the headcount — and lifted <em>margin by 25 points.</em></h1>
-    <p class="lede">Director of Business &amp; Agentic Operations. I build the systems that let operations run themselves, then run them.</p>
-    <div class="ctas">
-      <a class="btn btn-primary" href="#work">See the work</a>
-      <a class="btn btn-ghost" href="#ask">Ask directly →</a>
+  <div class="wrap hero-grid">
+    <div class="hero-content">
+      <div class="status-line"><span class="dot"></span> STATUS: OPEN FOR FULL-TIME &amp; FRACTIONAL</div>
+      <h1>Built an agentic platform that automated the coordination layer of a 40-person contractor operation and lifted <em>margin by 25 points.</em></h1>
+      <p class="lede">Director of Business &amp; Agentic Operations. I build the systems that remove the coordination work, then run what's left.</p>
+      <div class="ctas">
+        <a class="btn btn-primary" href="#work">See the work</a>
+        <a class="btn btn-ghost js-open-chat" href="#">Ask directly →</a>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <img src="sam-headshot.jpg" alt="Sam Taylor">
     </div>
   </div>
 </header>
@@ -323,40 +514,66 @@ a:focus-visible, button:focus-visible, input:focus-visible{
     <div class="section-head">
       <div class="eyebrow">Track record</div>
       <h2>Three systems, one pattern.</h2>
-      <p>Find where coordination costs more than the work itself. Automate the coordination. Keep the judgment.</p>
+      <p>I look for where coordination costs more than the work itself, automate that, and keep the judgment calls.</p>
     </div>
 
     <div class="cases">
       <div class="case">
-        <div class="case-tag">Operations</div>
+        <div class="case-tag">
+          <svg class="case-icon" viewBox="0 0 8 8" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="3" y="0" width="2" height="1" fill="currentColor"/>
+            <rect x="3" y="7" width="2" height="1" fill="currentColor"/>
+            <rect x="0" y="3" width="1" height="2" fill="currentColor"/>
+            <rect x="7" y="3" width="1" height="2" fill="currentColor"/>
+            <rect x="3" y="3" width="2" height="2" fill="currentColor"/>
+          </svg>
+          Operations
+        </div>
         <div>
           <h3>Agentic operations platform</h3>
-          <div class="row"><span class="k">Situation</span><span class="v">A contractor-heavy delivery operation ran on manual coordination — high headcount, slow to scale, margin under constant pressure.</span></div>
-          <div class="row"><span class="k">Insight</span><span class="v">The bottleneck wasn't the delivery work. It was the coordination wrapped around it.</span></div>
+          <div class="row"><span class="k">Situation</span><span class="v">A contractor-heavy delivery operation ran on manual coordination, with high headcount, slow scaling, and margin under constant pressure.</span></div>
+          <div class="row"><span class="k">Insight</span><span class="v">Every contractor added coordination overhead faster than delivery capacity, so headcount was scaling the wrong side of the ratio.</span></div>
           <div class="row"><span class="k">Built</span><span class="v">An agentic project-management platform that took over triage, coordination, and routing across the contractor pool.</span></div>
           <div class="row"><span class="k">Outcome</span><span class="outcome">+25 percentage points of gross margin.</span></div>
         </div>
       </div>
 
       <div class="case">
-        <div class="case-tag">Personal systems</div>
+        <div class="case-tag">
+          <svg class="case-icon" viewBox="0 0 8 8" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="0" y="1" width="1" height="1" fill="currentColor"/>
+            <rect x="2" y="1" width="6" height="1" fill="currentColor"/>
+            <rect x="0" y="3.5" width="1" height="1" fill="currentColor"/>
+            <rect x="2" y="3.5" width="6" height="1" fill="currentColor"/>
+            <rect x="0" y="6" width="1" height="1" fill="currentColor"/>
+            <rect x="2" y="6" width="6" height="1" fill="currentColor"/>
+          </svg>
+          Personal systems
+        </div>
         <div>
           <h3>Personal life assistant</h3>
-          <div class="row"><span class="k">Situation</span><span class="v">Email, messages, calendar, and health data all needed attention, and none of it was triaged.</span></div>
-          <div class="row"><span class="k">Insight</span><span class="v">The problem was never volume. It was untriaged information demanding equal attention.</span></div>
-          <div class="row"><span class="k">Built</span><span class="v">A personal assistant that turns everything incoming into to-dos and a daily digest, with voice-note capture for "note to self" moments.</span></div>
-          <div class="row"><span class="k">Outcome</span><span class="outcome">One digest replaces constant app-switching.</span></div>
+          <div class="row"><span class="k">Situation</span><span class="v">Email, messages, calendar, and health data all competed for attention, with no single view of what actually needed doing.</span></div>
+          <div class="row"><span class="k">Insight</span><span class="v">An inbox treats everything as equally urgent by default, but almost none of it actually is.</span></div>
+          <div class="row"><span class="k">Built</span><span class="v">An assistant that reads all four, turns what matters into to-dos, and delivers one daily digest, with voice-note capture for anything worth flagging on the go.</span></div>
+          <div class="row"><span class="k">Outcome</span><span class="outcome">Four things to check became one daily digest.</span></div>
         </div>
       </div>
 
       <div class="case">
-        <div class="case-tag">Job search</div>
+        <div class="case-tag">
+          <svg class="case-icon" viewBox="0 0 8 8" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="0.5" y="0.5" width="7" height="7" fill="none" stroke="currentColor" stroke-width="1"/>
+            <rect x="2" y="2" width="4" height="4" fill="none" stroke="currentColor" stroke-width="1"/>
+            <rect x="3.25" y="3.25" width="1.5" height="1.5" fill="currentColor"/>
+          </svg>
+          Job search
+        </div>
         <div>
           <h3>Job application matching tool</h3>
           <div class="row"><span class="k">Situation</span><span class="v">A high-volume, multi-track job search needed to stay sharp without turning into generic mass-applying.</span></div>
           <div class="row"><span class="k">Insight</span><span class="v">Matching a profile to a role is a data problem before it's a writing problem.</span></div>
           <div class="row"><span class="k">Built</span><span class="v">A tool that scores role fit as a suitability heatmap, tailors the cover letter, and drafts outreach in his own voice.</span></div>
-          <div class="row"><span class="k">Outcome</span><span class="outcome">Targeted, fast applications at volume.</span></div>
+          <div class="row"><span class="k">Outcome</span><span class="outcome">Applications stay targeted, even at high volume.</span></div>
         </div>
       </div>
     </div>
@@ -368,54 +585,31 @@ a:focus-visible, button:focus-visible, input:focus-visible{
     <div class="section-head">
       <div class="eyebrow">How we work together</div>
       <h2>Two modes. Same approach.</h2>
-      <p>Whichever fits, the method doesn't change — find the coordination cost, automate it, keep the judgment.</p>
+      <p>Whichever fits, the method doesn't change: find the coordination cost, automate it, and keep the judgment.</p>
     </div>
 
     <div class="modes">
-      <div class="mode active">
+      <div class="mode" data-mode="fulltime" role="button" tabindex="0">
         <div class="mode-label"><span class="dot"></span>Mode: Full-time</div>
         <h3>Applied AI &amp; Agentic Operations</h3>
-        <p style="color:var(--slate); font-size:15.5px;">Senior operating roles — Applied AI Lead, Head of AI, BizOps, AI transformation.</p>
+        <p style="color:var(--slate); font-size:15.5px;">Leadership roles: Head of AI, Director of AI/Ops, BizOps &amp; AI transformation.</p>
         <ul>
           <li>Owns operations end to end, not just the AI layer</li>
           <li>Comfortable across BI, RevOps, and delivery</li>
           <li>Built and shipped, not just advised</li>
         </ul>
+        <a class="link" href="mailto:go@hiresam.uk">Full-time enquiries → go@hiresam.uk</a>
       </div>
-      <div class="mode">
-        <div class="mode-label"><span class="dot"></span>Mode: Fractional — Føre</div>
+      <div class="mode" data-mode="fractional" role="button" tabindex="0">
+        <div class="mode-label"><span class="dot"></span>Mode: Fractional (Føre)</div>
         <h3>Fractional AI &amp; ops support</h3>
-        <p style="color:var(--slate); font-size:15.5px;">For Yorkshire-based digital and creative agencies, 10–200 people.</p>
+        <p style="color:var(--slate); font-size:15.5px;">Don't need someone full-time? I offer everything from a single discovery day to a fractional Head of AI, whatever your team looks like.</p>
         <ul>
           <li>Discovery days through to a fractional Head of AI</li>
           <li>Systems built for the team to run, not to depend on me</li>
           <li>Structured retainers, clear scope</li>
         </ul>
-        <a class="link" href="https://foere.co.uk" target="_blank" rel="noopener">More on Føre →</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="ask">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow">Ask directly</div>
-      <h2>A live system, not a static page.</h2>
-      <p>This runs on the same idea as the work above — ask it anything about hiring me, full-time or fractional.</p>
-    </div>
-
-    <div class="console-wrap">
-      <div class="console-top">
-        <div class="dot-row"><span></span><span></span><span></span></div>
-        <div class="label">ask@hiresam.uk — session live</div>
-      </div>
-      <div id="chat-log">
-        <div class="msg sam"><span class="who">sam ›</span> Ask me anything about the work above, full-time availability, or how Føre engagements work. I'll answer plainly — if I don't know, I'll say so.</div>
-      </div>
-      <div class="console-input">
-        <input id="chat-input" type="text" placeholder="Type a question and press enter…" autocomplete="off">
-        <button id="chat-send">SEND</button>
+        <a class="link" href="mailto:sam@foere.co.uk">Fractional enquiries → sam@foere.co.uk</a>
       </div>
     </div>
   </div>
@@ -425,9 +619,9 @@ a:focus-visible, button:focus-visible, input:focus-visible{
   <div class="wrap">
     <div class="foot-grid">
       <div>
-        <div class="eyebrow" style="margin-bottom:10px;">Get in touch</div>
+        <div class="eyebrow" id="footer-contact-label" style="margin-bottom:10px;">Full-time enquiries</div>
         <div class="foot-links">
-          <a href="mailto:go@hiresam.uk">go@hiresam.uk</a>
+          <a id="footer-contact-link" href="mailto:go@hiresam.uk">go@hiresam.uk</a>
           <a href="https://www.linkedin.com/in/sam-taylor-b0157a84/" target="_blank" rel="noopener">LinkedIn</a>
         </div>
       </div>
@@ -436,6 +630,30 @@ a:focus-visible, button:focus-visible, input:focus-visible{
   </div>
 </footer>
 
+<button id="chat-bubble-btn" class="chat-bubble-btn" aria-label="Open chat" aria-expanded="false" aria-controls="chat-panel">
+  <span class="chat-bubble-dot"></span>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+  </svg>
+</button>
+
+<div id="chat-panel" class="chat-panel">
+  <div class="console-wrap">
+    <div class="console-top">
+      <div class="dot-row"><span></span><span></span><span></span></div>
+      <div class="label">ask@hiresam.uk (session live)</div>
+      <button id="chat-close" class="close-chat" aria-label="Close chat">×</button>
+    </div>
+    <div id="chat-log">
+      <div class="msg sam"><span class="who">sam ›</span> Ask me anything about the work above, full-time availability, or how Føre engagements work. I'll answer plainly. If I don't know, I'll say so.</div>
+    </div>
+    <div class="console-input">
+      <input id="chat-input" type="text" placeholder="Type a question and press enter…" autocomplete="off">
+      <button id="chat-send">SEND</button>
+    </div>
+  </div>
+</div>
+
 <script>
 /* ============================================================
    CHAT CONSOLE
@@ -443,7 +661,7 @@ a:focus-visible, button:focus-visible, input:focus-visible{
    The fetch below calls api.anthropic.com directly. This works
    automatically inside Claude.ai's own artifact preview (no key
    needed there). Once this site is deployed to hiresam.uk, this
-   direct call would expose an API key in the browser — so before
+   direct call would expose an API key in the browser, so before
    going live, change API_ENDPOINT below to '/api/chat' and deploy
    the included serverless function (api/chat.js) alongside this
    file. See README.md for exact steps.
@@ -455,7 +673,7 @@ const SYSTEM_PROMPT = `You are answering questions on Sam Taylor's personal site
 
 Background: Sam is Director of Business & Agentic Operations at LILT, an AI localisation company, based in West Yorkshire, UK. He built an agentic project-management platform that took a 40+ person contractor delivery operation down to a fraction of that headcount while lifting gross margin by 25 percentage points. He built the company's BI stack from scratch. He also builds his own tools: a personal assistant that triages email, messages, calendar and health data into to-dos and digests, and a job-search tool that scores role fit as a suitability heatmap, tailors cover letters, and drafts outreach in his own tone of voice.
 
-He is open to full-time senior roles in Applied AI, Agentic Operations, and BizOps, and to fractional engagements through Føre (his consultancy, serving Yorkshire-based digital and creative agencies of 10-200 people, with tiers from a single discovery day through to a fractional Head of AI).
+He is open to full-time senior roles in Applied AI, Agentic Operations, and BizOps, and to fractional engagements through Føre (his consultancy, open to teams of any size and sector, with tiers from a single discovery day through to a fractional Head of AI).
 
 Career: Matthews Brand Solutions (2014-15) -> thebigword (2015-22, Project Manager to Program Director, seven years, public-sector framework contracts) -> LILT (2022-present). Studied at the University of Chester.
 
@@ -500,7 +718,7 @@ async function sendMessage(){
     });
     const data = await res.json();
     const textBlocks = (data.content || []).filter(b => b.type === 'text').map(b => b.text);
-    const reply = textBlocks.join('\n') || "Couldn't get a response there — try rephrasing.";
+    const reply = textBlocks.join('\n') || "Couldn't get a response there. Try rephrasing.";
     thinkingEl.innerHTML = `<span class="who">sam ›</span> ${reply}`;
     history.push({role:'assistant', content: reply});
   }catch(err){
@@ -515,6 +733,72 @@ async function sendMessage(){
 
 chatSend.addEventListener('click', sendMessage);
 chatInput.addEventListener('keydown', e => { if(e.key === 'Enter') sendMessage(); });
+
+const chatBubbleBtn = document.getElementById('chat-bubble-btn');
+const chatPanel = document.getElementById('chat-panel');
+const chatCloseBtn = document.getElementById('chat-close');
+
+function openChat(){
+  chatPanel.classList.add('open');
+  chatBubbleBtn.setAttribute('aria-expanded', 'true');
+  chatInput.focus();
+}
+function closeChat(){
+  chatPanel.classList.remove('open');
+  chatBubbleBtn.setAttribute('aria-expanded', 'false');
+}
+function toggleChat(){
+  chatPanel.classList.contains('open') ? closeChat() : openChat();
+}
+
+chatBubbleBtn.addEventListener('click', toggleChat);
+chatCloseBtn.addEventListener('click', closeChat);
+document.querySelectorAll('.js-open-chat').forEach(el => {
+  el.addEventListener('click', e => { e.preventDefault(); openChat(); });
+});
+
+const navBurger = document.getElementById('nav-burger');
+const mobileNav = document.getElementById('mobile-nav');
+
+function closeMobileNav(){
+  mobileNav.classList.remove('open');
+  navBurger.classList.remove('open');
+  navBurger.setAttribute('aria-expanded', 'false');
+}
+function toggleMobileNav(){
+  const open = mobileNav.classList.toggle('open');
+  navBurger.classList.toggle('open', open);
+  navBurger.setAttribute('aria-expanded', String(open));
+}
+navBurger.addEventListener('click', toggleMobileNav);
+mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMobileNav));
+
+document.addEventListener('keydown', e => { if(e.key === 'Escape'){ closeChat(); closeMobileNav(); } });
+
+const modeEls = document.querySelectorAll('.mode');
+const footerContactLabel = document.getElementById('footer-contact-label');
+const footerContactLink = document.getElementById('footer-contact-link');
+const modeContact = {
+  fulltime: {label: 'Full-time enquiries', email: 'go@hiresam.uk'},
+  fractional: {label: 'Fractional (Føre)', email: 'sam@foere.co.uk'}
+};
+
+function setMode(mode){
+  modeEls.forEach(el => el.classList.toggle('active', el.dataset.mode === mode));
+  const contact = modeContact[mode];
+  footerContactLabel.textContent = contact.label;
+  footerContactLink.textContent = contact.email;
+  footerContactLink.href = 'mailto:' + contact.email;
+}
+
+modeEls.forEach(el => {
+  el.addEventListener('click', () => setMode(el.dataset.mode));
+  el.addEventListener('keydown', e => {
+    if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); setMode(el.dataset.mode); }
+  });
+});
+
+setMode('fulltime');
 </script>
 
 </body>
