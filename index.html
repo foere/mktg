@@ -118,9 +118,21 @@ nav .wrap{
   display:flex; align-items:center; justify-content:flex-end;
   height:64px;
 }
+.navlinks{display:flex; gap:28px; font-family:var(--mono); font-size:13px;}
+.navlinks a{
+  text-decoration:none;
+  color:var(--slate);
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:0.06em;
+  border-bottom:2px solid transparent;
+  padding-bottom:2px;
+  transition:color .15s, border-color .15s, text-shadow .15s;
+}
+.navlinks a:hover, .navlinks a:focus-visible{color:var(--live); border-color:var(--live); text-shadow:0 0 8px rgba(51,255,224,0.7);}
 
 .nav-burger{
-  display:flex; flex-direction:column; justify-content:center; gap:6px;
+  display:none; flex-direction:column; justify-content:center; gap:6px;
   width:44px; height:44px; padding:0;
   background:none; border:none; cursor:pointer; z-index:60;
 }
@@ -152,6 +164,11 @@ nav .wrap{
 }
 .mobile-nav a:last-child{border-bottom:none;}
 .mobile-nav a:hover, .mobile-nav a:focus-visible{color:var(--live); text-shadow:0 0 8px rgba(51,255,224,0.7);}
+
+@media (max-width:720px){
+  .navlinks{display:none;}
+  .nav-burger{display:flex;}
+}
 
 /* ---------- HERO ---------- */
 .hero{
@@ -463,6 +480,12 @@ a:focus-visible, button:focus-visible, input:focus-visible{
 
 <nav>
   <div class="wrap">
+    <div class="navlinks">
+      <a href="#work">Work</a>
+      <a href="#modes">Engage</a>
+      <a href="#" class="js-open-chat">Ask</a>
+      <a href="#contact">Contact</a>
+    </div>
     <button id="nav-burger" class="nav-burger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
       <span></span><span></span><span></span>
     </button>
