@@ -48,6 +48,9 @@
 </script>
 
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800&display=swap" rel="stylesheet">
 <style>
 
 /* ============================================
@@ -219,13 +222,13 @@ nav .wrap{
   border-bottom:1px solid var(--line);
 }
 .hero-name{
-  font-family:var(--display);
-  font-weight:700;
-  font-size:clamp(30px, 5vw, 46px);
+  font-family:'Orbitron', var(--display);
+  font-weight:800;
+  font-size:clamp(28px, 5vw, 48px);
   letter-spacing:0.02em;
   color:var(--live);
   text-shadow:0 0 16px rgba(51,255,224,0.4);
-  margin-bottom:40px;
+  margin-bottom:14px;
 }
 .hero-grid{
   display:grid; grid-template-columns:1fr; gap:24px; align-items:center;
@@ -571,7 +574,7 @@ a:focus-visible, button:focus-visible, input:focus-visible{
 
 <header class="hero">
   <div class="wrap">
-    <div class="hero-name">SAM TAYLOR</div>
+    <div class="hero-name">Sam Taylor</div>
   </div>
   <div class="wrap hero-grid">
     <div class="hero-photo">
@@ -624,39 +627,38 @@ a:focus-visible, button:focus-visible, input:focus-visible{
       <div class="case">
         <div class="case-tag">
           <svg class="case-icon" viewBox="0 0 8 8" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <rect x="0" y="1" width="1" height="1" fill="currentColor"/>
-            <rect x="2" y="1" width="6" height="1" fill="currentColor"/>
-            <rect x="0" y="3.5" width="1" height="1" fill="currentColor"/>
-            <rect x="2" y="3.5" width="6" height="1" fill="currentColor"/>
-            <rect x="0" y="6" width="1" height="1" fill="currentColor"/>
-            <rect x="2" y="6" width="6" height="1" fill="currentColor"/>
+            <rect x="1" y="1" width="6" height="1.5" fill="currentColor"/>
+            <rect x="1" y="3.25" width="6" height="1.5" fill="currentColor"/>
+            <rect x="1" y="5.5" width="6" height="1.5" fill="currentColor"/>
           </svg>
-          Personal systems
+          Systems
         </div>
         <div>
-          <h3>Personal life assistant</h3>
-          <div class="row"><span class="k">Situation</span><span class="v">Email, messages, calendar, and health data all competed for attention, with no single view of what actually needed doing.</span></div>
-          <div class="row"><span class="k">Insight</span><span class="v">An inbox treats everything as equally urgent by default, but almost none of it actually is.</span></div>
-          <div class="row"><span class="k">Built</span><span class="v">An assistant that reads all four, turns what matters into to-dos, and delivers one daily digest, with voice-note capture for anything worth flagging on the go.</span></div>
-          <div class="row"><span class="k">Outcome</span><span class="outcome">Four things to check became one daily digest.</span></div>
+          <h3>Business Intelligence, built from zero</h3>
+          <div class="row"><span class="k">Situation</span><span class="v">Inherited a direct MySQL-to-BigQuery clone, scrappy Looker Studio dashboards, no Salesforce integration, and most of the real reporting sitting in spreadsheets.</span></div>
+          <div class="row"><span class="k">Insight</span><span class="v">Without one agreed definition per metric, every team was marking its own homework, and leadership couldn't trust the numbers enough to act on them.</span></div>
+          <div class="row"><span class="k">Built</span><span class="v">A proper data stack: Fivetran pipelines from Salesforce, Jira and other systems, dbt for transformation, Sigma Computing as the BI layer, plus a data dictionary and naming conventions so every metric has one definition, not four.</span></div>
+          <div class="row"><span class="k">Outcome</span><span class="outcome">Became the single source of truth behind weekly leadership reviews, MBRs, and OKRs company-wide, and the foundation the margin work was built on.</span></div>
         </div>
       </div>
 
       <div class="case">
         <div class="case-tag">
           <svg class="case-icon" viewBox="0 0 8 8" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <rect x="0.5" y="0.5" width="7" height="7" fill="none" stroke="currentColor" stroke-width="1"/>
-            <rect x="2" y="2" width="4" height="4" fill="none" stroke="currentColor" stroke-width="1"/>
-            <rect x="3.25" y="3.25" width="1.5" height="1.5" fill="currentColor"/>
+            <rect x="3" y="0" width="2" height="1" fill="currentColor"/>
+            <rect x="3" y="7" width="2" height="1" fill="currentColor"/>
+            <rect x="0" y="3" width="1" height="2" fill="currentColor"/>
+            <rect x="7" y="3" width="1" height="2" fill="currentColor"/>
+            <rect x="3" y="3" width="2" height="2" fill="currentColor"/>
           </svg>
-          Job search
+          Operations
         </div>
         <div>
-          <h3>Job application matching tool</h3>
-          <div class="row"><span class="k">Situation</span><span class="v">A high-volume, multi-track job search needed to stay sharp without turning into generic mass-applying.</span></div>
-          <div class="row"><span class="k">Insight</span><span class="v">Matching a profile to a role is a data problem before it's a writing problem.</span></div>
-          <div class="row"><span class="k">Built</span><span class="v">A tool that scores role fit as a suitability heatmap, tailors the cover letter, and drafts outreach in his own voice.</span></div>
-          <div class="row"><span class="k">Outcome</span><span class="outcome">Applications stay targeted, even at high volume.</span></div>
+          <h3>Supply chain compliance, automated</h3>
+          <div class="row"><span class="k">Situation</span><span class="v">Compliance checks across the supplier network were manual and repetitive, consuming several people's time every week without adding any real judgment.</span></div>
+          <div class="row"><span class="k">Insight</span><span class="v">The cost wasn't the checking itself, it was the coordination and repetition around it, which meant it could be tooled rather than staffed.</span></div>
+          <div class="row"><span class="k">Built</span><span class="v">A compliance automation and process redesign that took the manual checking out of the workflow entirely.</span></div>
+          <div class="row"><span class="k">Outcome</span><span class="outcome">Saved 4.5 FTEs.</span></div>
         </div>
       </div>
     </div>
