@@ -238,30 +238,17 @@ nav .wrap{
   aspect-ratio:1/1;
   margin-bottom:0;
 }
-.hero-photo::before{
-  content:"";
-  position:absolute; inset:-24%;
-  border-radius:50%;
-  background-image:
-    radial-gradient(circle, var(--signal) 2.4px, transparent 2.9px),
-    radial-gradient(circle, var(--live) 1.7px, transparent 2.1px),
-    radial-gradient(circle, var(--signal) 1.1px, transparent 1.4px);
-  background-size:18px 18px, 26px 26px, 13px 13px;
-  background-position:0 0, 6px 9px, 3px 4px;
-  opacity:0.6;
-  -webkit-mask-image:radial-gradient(circle at 43% 40%, transparent 34%, #000 56%, transparent 76%);
-          mask-image:radial-gradient(circle at 43% 40%, transparent 34%, #000 56%, transparent 76%);
-  z-index:0;
-}
 .hero-photo::after{
   content:"";
   position:absolute; inset:-24%;
   border-radius:50%;
-  background-image:radial-gradient(circle, #fff 1.8px, transparent 2.2px);
-  background-size:6px 6px;
-  background-position:2px 2px;
-  -webkit-mask-image:radial-gradient(circle, transparent 22%, #000 38%, transparent 62%);
-          mask-image:radial-gradient(circle, transparent 22%, #000 38%, transparent 62%);
+  background-image:
+    radial-gradient(circle, var(--signal) 1.8px, transparent 2.2px),
+    radial-gradient(circle, var(--live) 1.4px, transparent 1.7px);
+  background-size:9px 9px, 13px 13px;
+  background-position:2px 2px, 5px 7px;
+  -webkit-mask-image:radial-gradient(circle at 58% 63%, transparent 20%, #000 38%, transparent 64%);
+          mask-image:radial-gradient(circle at 58% 63%, transparent 20%, #000 38%, transparent 64%);
   z-index:0;
 }
 .hero-photo img{
@@ -278,8 +265,8 @@ nav .wrap{
   border-radius:50%;
   background-image:
     radial-gradient(circle, transparent 42%, rgba(0,0,0,0.7) 88%, rgba(0,0,0,0.35) 100%),
-    radial-gradient(circle, #000 2px, transparent 2.4px);
-  background-size:100% 100%, 7px 7px;
+    radial-gradient(circle, #000 1.1px, transparent 1.4px);
+  background-size:100% 100%, 6px 6px;
   background-position:0 0, 2px 2px;
   -webkit-mask-image:radial-gradient(circle, transparent 58%, #000 80%, transparent 100%);
           mask-image:radial-gradient(circle, transparent 58%, #000 80%, transparent 100%);
